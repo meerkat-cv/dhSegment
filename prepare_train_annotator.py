@@ -32,7 +32,7 @@ def create_base_folders(train_foldername):
     os.mkdir(train_foldername+"/eval")
     os.mkdir(train_foldername+"/eval/images")
     os.mkdir(train_foldername+"/eval/labels")
-    os.mkdir(train_foldername+"/output_model")
+    # os.mkdir(train_foldername+"/output_model") will be created automatically when training
 
 def make_config_dict(train_foldername):
     config_dict = {
@@ -114,7 +114,7 @@ def prepare_train_annotator(annotator_url,
                 c_fid.write("{0} {1} {2}\n".format(*c))
 
         cfg = make_config_dict(train_foldername)
-        with open(train_foldername+"/confid.json", 'w') as c_fid:
+        with open(train_foldername+"/config.json", 'w') as c_fid:
             json.dump(cfg, c_fid, indent=4, sort_keys=True)
  
     print("Done.")
