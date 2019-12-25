@@ -1,0 +1,3 @@
+[submodule "dh_segment_core"]
+	path = dh_segment_core
+	url = https://bitbucket.org/meerkat_company/dh_segment_core.git
