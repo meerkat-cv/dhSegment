@@ -123,5 +123,5 @@ def prepare_train_annotator(annotator_url,
 
 if __name__ == "__main__":
     prepare_train_annotator(
-        "http://localhost:8094/annotator_supreme/", "cnh_norm_test", train_foldername = "cnh_field_train", redownload_dataset=True)
+        "http://localhost:8094/annotator_supreme/", "cnh_norm_test", train_foldername = "cnh_field_train_take_2", redownload_dataset=True)
 

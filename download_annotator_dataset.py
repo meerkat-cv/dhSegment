@@ -44,5 +44,7 @@ def download_annotator_dataset(dataset_name = 'test_cheques',
         
 
 if __name__ == "__main__":
-    download_annotator_dataset(dataset_name='cheques_sicredi')
+    download_annotator_dataset(dataset_name="cnh_scanned",
+                                 annotator_url='http://monolito:8094/annotator_supreme/',
+                                 dataset_dir='datasets/')
 # http://192.168.1.42:8095/annotator_supreme/dataset/all
