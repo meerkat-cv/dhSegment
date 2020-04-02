@@ -3,6 +3,7 @@ from tensorflow.contrib.image import rotate as tf_rotate
 from scipy import ndimage
 import numpy as np
 from typing import Tuple
+from random import random
 
 
 def data_augmentation_fn(input_image: tf.Tensor, label_image: tf.Tensor, flip_lr: bool=True,
@@ -31,10 +32,15 @@ def data_augmentation_fn(input_image: tf.Tensor, label_image: tf.Tensor, flip_lr
 
         chanels = input_image.get_shape()[-1]
         if color:
-            input_image = tf.image.random_contrast(input_image, lower=0.8, upper=1.0)
+            input_image = tf.image.random_contrast(input_image, lower=0.5, upper=1.5)
             if chanels == 3:
                 input_image = tf.image.random_hue(input_image, max_delta=0.1)
                 input_image = tf.image.random_saturation(input_image, lower=0.8, upper=1.2)
+                sample = tf.random_uniform([], 0, 1)
+                def to_gray(input_image):
+                    input_image = tf.image.rgb_to_grayscale(input_image)
+                    return tf.image.grayscale_to_rgb(input_image)
+                input_image = tf.cond(sample > 0.8, lambda: to_gray(input_image), lambda: input_image)
         return input_image, label_image
 
 
@@ -92,6 +98,7 @@ def resize_image(image: tf.Tensor, size: int, interpolation: str='BILINEAR') -> 
         new_height = tf.sqrt(tf.div(size, ratio))
         new_width = tf.div(size, new_height)
         new_shape = tf.cast([new_height, new_width], tf.int32)
+        # tf.print('new shape', new_shape, 'from size and ratio', size, ratio)
         resize_method = {
             'NEAREST': tf.image.ResizeMethod.NEAREST_NEIGHBOR,
             'BILINEAR': tf.image.ResizeMethod.BILINEAR
